@@ -12,6 +12,7 @@ int main()
         return 1;
     }
     char line[256];
+    int l = 0;
     int ignore = 1;
     float input[3];
 
@@ -26,8 +27,14 @@ int main()
             input[i++] = atof(token);
         }
 
-        *(res++) = input[0];
-        *(imgs++) = input[1];
+        *res = input[0];
+        *imgs = input[1];
+
+        res++;
+        imgs++;
+
+        printf("%d: %f, %f\n", l, input[0], input[1]);
+        l++;
 
         // trigger detection
         // if (input[2] == 0 || ignore == 1)
@@ -39,6 +46,10 @@ int main()
 
 
     }
-
-    printf("stop");
+    printf("MEMORY\n");
+    // check prints of floats in mem
+    for (int i = 0; i < 1024; i++)
+    {
+        printf("%f, %f\n", res[i], imgs[i]);
+    }
 }
