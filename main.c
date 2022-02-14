@@ -11,13 +11,14 @@ int main()
         printf("Error opening file\n");
         return 1;
     }
-    char line[2048];
+    char line[256];
     int ignore = 1;
     float input[3];
 
-    reals = pffft_aligned_malloc(sizeof(float) * 2048);
+    float* res = (float*) pffft_aligned_malloc(sizeof(float) * 1024);
+    float* imgs = (float*) pffft_aligned_malloc(sizeof(float) * 1024);
 
-    while (fgets(line, 2048, stream))
+    while (fgets(line, 256, stream))
     {
         int i = 0;
         for (char *token = strtok(line, ","); token != NULL; token = strtok(NULL, ","))
@@ -25,11 +26,19 @@ int main()
             input[i++] = atof(token);
         }
 
-        if (input[2] == 0 || ignore == 1)
-        {
-            if (ignore = 1)
-                ignore = 0;
+        *(res++) = input[0];
+        *(imgs++) = input[1];
+
+        // trigger detection
+        // if (input[2] == 0 || ignore == 1)
+        // {
+        //     if (ignore = 1)
+        //         ignore = 0;
             
-        }
+        // }
+
+
     }
+
+    printf("stop");
 }
